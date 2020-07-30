@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Seed Splitter</title>
+    <script src="secrets.min.js"></script>
+    <script src="encoding.js"></script>
+    <script src="wordlists.js"></script>
+  </head>
+  <body>
+    <h3> Create shares</h3>
+    <div style="border: 1px solid;">
+      <span>seed:&nbsp;</span><textarea id="seed" rows="6" cols="40"></textarea><br>
+      <span>threshhold:&nbsp;</span><input id="threshhold" type="number" min="2"/><br>
+      <span>shares:&nbsp;</span><input id="shares" type="number" min="2"/>
+      <button id="generate">generate</button><br>
+
+      <p id="length">seed length: unknown</p>
+      <h4>Generated shares:</h4>
+      <ul id="share-list"></ul>
+    </div>
+
+    <h3> Recover mnemonic phrase</h3>
+    <div style="border: 1px solid;">
+      <span>shares (please enter your shares over multiple lines):</span>
+      <textarea id="recover-shares" rows="6" cols="100">
+      </textarea><br>
+      <button id="recover">Recover</button>
+      <p id="recovered-seed">Seed: -</p>
+    </div>
+
+
+    <script src="main.js"></script>
+  </body>
+</html>
