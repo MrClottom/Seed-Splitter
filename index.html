@@ -25,7 +25,7 @@
       #shares-input > label {margin-right: 89px}
       #generate {margin-left: 20px}
 
-      #explanation {background-color: #ddd; padding-top: 1px;}
+      #explanation {background-color: #ddd; padding: 1px 0px 30px 0px;}
       .wordlist {float: left; padding: 20px 20px 10px 20px;}
       .wordlist > select {margin: 6px 0px 6px 0px}
       #expText {margin: 0px 30px 0px 30px;}
@@ -172,9 +172,21 @@
       <br>
 
       <div id="explanation">
-        <h2>How to use</h2>
+        <h2>About</h2>
         <div id="expText">
-          Nothing here yet
+          The page is purposefully simplistic to make it easier to audit and
+          review the code. There's only one external dependency which is the
+          implementation of the shamir secret sharing scheme which was
+          originally cloned from
+          <a href="https://github.com/grempe/secrets.js">here</a>. The source
+          code for the entire page can be found <a
+            href="https://github.com/MrClottom/Seed-Splitter">here</a>. For use
+          with highly sensitive data such as master passwords or hardware wallet
+          seeds it is recommended to download the repository, review the code
+          and use the application offline on a device that is wiped completely
+          after use. If you discover any bugs or security vulnerabilities be
+          sure to check the README of the <a
+            href="https://github.com/MrClottom/Seed-Splitter">repository</a>.
         </div>
       </div>
     </div>
