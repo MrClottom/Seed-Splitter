@@ -3,31 +3,181 @@
     <title>Seed Splitter</title>
     <script src="secrets.min.js"></script>
     <script src="encoding.js"></script>
+    <script src="seed.js"></script>
     <script src="wordlists.js"></script>
+    <script src="fields.js"></script>
+
+    <style>
+      input {font-family: Lucida Console, monospace;}
+      textarea {vertical-align: top; resize: none; }
+      h1 {width: 220px; margin: 0 0; background-color: #ddd;}
+      h1, h2 {text-align: center;}
+      body {background-color: #666;}
+
+      #main-wrapper {width: 1650px; margin: 0 auto;}
+
+      .section {background-color: #ddd; padding: 1px 0px 20px 0px; height: 370px;}
+      .section > h2 {margin-top: 0px;}
+
+      .mnemonic > label {margin-right: 20px}
+      .normalText > label {margin-right: 96px}
+      #shares-output > label {margin-right: 80px}
+      #shares-input > label {margin-right: 89px}
+      #generate {margin-left: 20px}
+
+      #explanation {background-color: #ddd; padding-top: 1px;}
+      .wordlist {float: left; padding: 20px 20px 10px 20px;}
+      .wordlist > select {margin: 6px 0px 6px 0px}
+      #expText {margin: 0px 30px 0px 30px;}
+    </style>
   </head>
   <body>
-    <h3> Create shares</h3>
-    <div style="border: 1px solid;">
-      <span>seed:&nbsp;</span><textarea id="seed" rows="6" cols="40"></textarea><br>
-      <span>threshhold:&nbsp;</span><input id="threshhold" type="number" min="2"/><br>
-      <span>shares:&nbsp;</span><input id="shares" type="number" min="2"/>
-      <button id="generate">generate</button><br>
+    <div id="main-wrapper">
+      <h1>Secret Splitter</h1>
+      <div id="secretSplit" class="section">
+        <div class="wordlist">
+          <span>1. Word List:</span><br>
+          <select
+            onchange="loadWordList(this.value, '#secretSplit .wordlist > textarea')"
+          >
+            <option value="bip39-en">BIP39 (en)</option>
+            <option value="monero-en">Monero 1626 words list (en)</option>
+            <option value="empty">Custom</option>
+          </select><br>
+          <textarea rows="20" cols="24" oninput="console.log('hello')">
+          </textarea>
+        </div>
+        <h2>Secret Splitting</h2>
+        <br>
+        <div class="mnemonic">
+          <label>
+            &nbsp;2. Mnemonic Seed:
+          </label>
+          <textarea
+            cols="120"
+            rows="2"
+            placeholder="13 or 24/25 word mnemonic seed"
+          ></textarea>
+          <button onclick="seedGen4()">Gen 4.</button>
+        </div>
+        <br>
+        <div class="normalText">
+          <label>&nbsp;3. Text:</label>
+          <input
+            type="text"
+            placeholder="some text such as a password"
+            size="66"
+          >
+          <button onclick="textGen4()">Gen 4.</button>
+        </div>
+        <br>
+        <div id="input-hexData">
+          <label>&nbsp;4. Raw data (base 16):</label>
+          <input
+            type="text"
+            placeholder="raw data as hex (base 16) 0123256789abcdef"
+            size="66"
+          >
+          <label>5. Threshhold:</label>
+          <input
+            type="number"
+            min="2"
+            default="2"
+            max="255"
+            oninput="handleThreshhold(this)"
+          >
+          <label>6. Shares:</label>
+          <input
+            id="shareNum"
+            type="number"
+            min="2"
+            max="255"
+            oninput="insureRange(this)"
+          >
+          <button id="generate" onclick="shareGen7()">Generate Shares 7.</button>
+        </div>
+        <br>
+        <div id="shares-output">
+          <label>
+            &nbsp;7. Shares:
+          </label>
+          <textarea
+            cols="120"
+            rows="10"
+            readonly
+            placeholder="the generated shares will be shown here"
+            wrap="off"
+          ></textarea>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div id="recombination" class="section">
+        <div class="wordlist">
+          <span>8. Word List:</span><br>
+          <select
+            onchange="loadWordList(this.value, '#recombination .wordlist > textarea')"
+          >
+            <option value="bip39-en">BIP39 (en)</option>
+            <option value="monero-en">Monero 1626 words list (en)</option>
+            <option value="empty">Custom</option>
+          </select><br>
+          <textarea rows="20" cols="24" oninput="console.log('hello')">
+          </textarea>
+        </div>
+        <h2>Recombine Shares</h2>
+        <div id="shares-input">
+          <label>
+            &nbsp;9. Shares:
+          </label>
+          <textarea
+            cols="120"
+            rows="10"
+            placeholder="input your shares here"
+          ></textarea>
+          <button onclick="restoreData10()">Recover raw data 10.</button>
+        </div>
+        <br>
+        <div id="output-hexData">
+          <label>&nbsp;10. Raw data (base 16):</label>
+          <input
+            type="text"
+            placeholder="recovered data"
+            size="88"
+          >
+          <button onclick="toSeed11()">Convert to seed 11.</button>
+          <button onclick="toText12()">Convert to text 12.</button>
+        </div>
+        <br>
+        <div class="mnemonic">
+          <label>
+            &nbsp;11. Mnemonic Seed:
+          </label>
+          <textarea
+            cols="120"
+            rows="2"
+            readonly
+            placeholder="13 or 24/25 word mnemonic seed"
+          ></textarea>
+        </div>
+        <br>
+        <div class="normalText">
+          <label>&nbsp;12. Text:</label>
+          <input type="text" placeholder="text" size="121" readonly></input>
+        </div>
 
-      <p id="length">seed length: unknown</p>
-      <h4>Generated shares:</h4>
-      <ul id="share-list"></ul>
+      </div>
+
+      <br>
+      <br>
+
+      <div id="explanation">
+        <h2>How to use</h2>
+        <div id="expText">
+          Nothing here yet
+        </div>
+      </div>
     </div>
-
-    <h3> Recover mnemonic phrase</h3>
-    <div style="border: 1px solid;">
-      <span>shares (please enter your shares over multiple lines):</span>
-      <textarea id="recover-shares" rows="6" cols="100">
-      </textarea><br>
-      <button id="recover">Recover</button>
-      <p id="recovered-seed">Seed: -</p>
-    </div>
-
-
     <script src="main.js"></script>
   </body>
 </html>

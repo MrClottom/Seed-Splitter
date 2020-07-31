@@ -1,5 +1,10 @@
+const loadWordList = (wordList, selector) => {
+  document.querySelector(selector).value = wordLists[wordList].join('\n')
+}
+
 const wordLists = {
-  monero: [
+  empty: [],
+  'monero-en': [
     'abbey',
     'abducts',
     'ability',
@@ -1627,7 +1632,7 @@ const wordLists = {
     'zones',
     'zoom'
   ],
-  bip39: [
+  'bip39-en': [
     'abandon',
     'ability',
     'able',
