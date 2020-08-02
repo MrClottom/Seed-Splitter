@@ -1,7 +1,7 @@
 # Seed-Splitter
 Simple website/application to split confidential secrets such as a cryptocurrency seed into shares using the Shamir Secret Sharing Scheme. Feel free to add more word lists.
 This page is meant to function without connecting to the internet or somehow
-transimitting any kind of data.
+transimitting any kind of data. For a hosted version you can checkout [maybez.io](https://maybez.io/utils/seed-splitter)
 
 ## Contributing
 If you find a security issue please email me at security@maybez.io. Otherwise if
