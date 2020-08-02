@@ -43,9 +43,6 @@ const shareGen7 = () => {
   getEl('#shares-output > textarea').value = shareList
 }
 
-//80497e78744c27955dce613a55e26a0c9ec288544f6ca4d0684adc4ba7f8b5a299338e6c608f981fa8119e97ba0383f6d2e
-//8 497e78744c27955dce613a55e26a0c9ec288544f6ca4d0684adc4ba7f8b5a299338e6c6 8f981fa8119e97ba0383f6d2e
-
 const restoreData10 = () => {
   const shares = value('#shares-input > textarea')
     .split('\n')
