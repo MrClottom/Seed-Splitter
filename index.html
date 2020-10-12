@@ -11,7 +11,15 @@
     <style>
       input {font-family: Lucida Console, monospace;}
       textarea {vertical-align: top; resize: none; }
-      h1 {width: 220px; margin: 0 0; background-color: #ddd;}
+      div.title {
+        width: 360px;
+        margin: 0 0;
+        background-color: #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0px 10px 0px 10px
+      }
       h1, h2 {text-align: center;}
       body {background-color: #666;}
 
@@ -34,7 +42,10 @@
   </head>
   <body>
     <div id="main-wrapper">
-      <h1>Secret Splitter</h1>
+      <div class="title">
+        <h1>Secret Splitter</h1>
+        <a href="/">return to main page</a>
+      </div>
       <div id="secretSplit" class="section">
         <div class="wordlist">
           <span>1. Word List:</span><br>
